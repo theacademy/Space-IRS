@@ -16,13 +16,13 @@ public class SettlementController {
     @Autowired
     private SettlementRepo settlementRepo;
 
-    @GetMapping("/settlements")
+    @GetMapping("/all")
     public ResponseEntity<List<Settlement>> allSettlements() {
         List<Settlement> settlements = settlementRepo.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(settlements);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<Settlement> getSettlement(@PathVariable("id") Integer id) {
         Settlement settlement = settlementRepo.findById(id).orElse(null);
         return new ResponseEntity<Settlement>(settlement, HttpStatus.OK);
@@ -34,13 +34,13 @@ public class SettlementController {
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteSettlement(@PathVariable("id") Integer id) {
         settlementRepo.deleteById(id);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Settlement> updateSettlement(@PathVariable("id") Integer id, @RequestBody Settlement settlement) {
         settlementRepo.save(settlement);
         return new ResponseEntity<Settlement>(settlement, HttpStatus.OK);
