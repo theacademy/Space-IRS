@@ -47,4 +47,11 @@ public class SettlementController {
         settlementService.updateSettlementData(id, settlement);
         return new ResponseEntity<Settlement>(settlement, HttpStatus.OK);
     }
+
+    @PutMapping("/search/{name}")
+    public ResponseEntity<List<Settlement>> updateSettlement(@PathVariable("name") String name,
+                                                       @RequestBody Settlement settlement) throws ServicePersistenceException {
+        List<Settlement> settlements = settlementService.searchForSettlement(name);
+        return ResponseEntity.status(HttpStatus.OK).body(settlements);
+    }
 }

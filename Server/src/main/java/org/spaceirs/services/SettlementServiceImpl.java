@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class SettlementServiceImpl implements SettlementService {
@@ -90,4 +91,7 @@ public class SettlementServiceImpl implements SettlementService {
         return null;
     }
 
+    public List<Settlement> searchForSettlement(String name) {
+        return settlementDao.searchForSettlements(name);
+    }
 }
