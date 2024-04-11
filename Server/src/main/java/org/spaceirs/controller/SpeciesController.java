@@ -1,6 +1,5 @@
 package org.spaceirs.controller;
 
-import org.spaceirs.dao.SpeciesRepo;
 import org.spaceirs.entity.Species;
 import org.spaceirs.services.SpeciesService;
 import org.springframework.beans.factory.annotation.Autowired;
