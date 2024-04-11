@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface SettlementService {
     List<Settlement> getAllSettlements();
-    Settlement getSettlementById(int id);
-    Settlement addNewSettlement(Settlement settlement);
-    Settlement updateSettlementData(int id, Settlement settlement);
-    void deleteSettlementById(int id);
+    Settlement getSettlementById(int id) throws ServicePersistenceException;
+    Settlement addNewSettlement(Settlement settlement) throws ServicePersistenceException;
+    Settlement updateSettlementData(int id, Settlement settlement) throws ServicePersistenceException;
+    void deleteSettlementById(int id) throws ServicePersistenceException;
     Settlement addSpeciesToSettlement(int setId, int speId, BigDecimal population);
     Settlement addChildSettlementToSettlement(int setId);
 }
