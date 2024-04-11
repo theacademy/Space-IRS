@@ -19,13 +19,5 @@ h3 {
 }
 
 .detailCard {
-    @apply bg-gray-200 p-4 rounded-lg shadow-md;
-}
-
-.settlementCard {
-    @apply detailCard bg-green-200;
-}
-
-.speciesCard {
-    @apply detailCard bg-red-200;
+    @apply bg-gray-200 p-4 rounded-lg shadow-md placeholder-black;
 }
