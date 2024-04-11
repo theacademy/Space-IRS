@@ -16,13 +16,13 @@ public class SpeciesController {
     @Autowired
     private SpeciesRepo speciesRepo;
 
-    @GetMapping("/species")
+    @GetMapping("/all")
     public ResponseEntity<List<Species>> allSpecies() {
         List<Species> species = speciesRepo.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(species);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<Species> getSpecies(@PathVariable("id") Integer id) {
         Species species = speciesRepo.findById(id).orElse(null);
         return new ResponseEntity<Species>(species, HttpStatus.OK);
@@ -34,14 +34,14 @@ public class SpeciesController {
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteSpecies(@PathVariable("id") Integer id) {
         speciesRepo.deleteById(id);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Species> updateSpecies(@RequestBody Species species) {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Species> updateSpecies(@PathVariable("id") Integer id, @RequestBody Species species) {
         speciesRepo.save(species);
         return new ResponseEntity<Species>(species, HttpStatus.OK);
     }
