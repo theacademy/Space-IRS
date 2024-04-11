@@ -1,9 +1,8 @@
-package org.spaceirs.service;
+package org.spaceirs.services;
 
 import org.spaceirs.dao.SettlementRepo;
 import org.spaceirs.dao.SpeciesRepo;
 import org.spaceirs.entity.Settlement;
-import org.spaceirs.service.SettlementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -25,12 +24,11 @@ public class SettlementServiceImpl implements SettlementService {
     }
 
     public List<Settlement> getAllSettlements(){
-
-        return null;
+        return settlementDao.findAll();
     }
 
     @Override
-    public Settlement getSettlementById(int id) throws ServicePersistenceException{
+    public Settlement getSettlementById(int id) throws ServicePersistenceException {
         Settlement settlement;
         try{
             settlement = settlementDao.findById(id).orElse(null);

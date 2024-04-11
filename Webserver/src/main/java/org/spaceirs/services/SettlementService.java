@@ -1,4 +1,4 @@
-package org.spaceirs.service;
+package org.spaceirs.services;
 
 import org.spaceirs.entity.Settlement;
 

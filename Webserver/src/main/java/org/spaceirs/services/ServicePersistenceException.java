@@ -1,4 +1,4 @@
-package org.spaceirs.service;
+package org.spaceirs.services;
 
 public class ServicePersistenceException extends Exception{
     public ServicePersistenceException(String message) {
