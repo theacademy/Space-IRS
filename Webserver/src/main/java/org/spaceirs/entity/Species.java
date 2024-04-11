@@ -8,14 +8,14 @@ import java.util.Set;
 public class Species {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "speciesId", nullable = false)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
     @Column(name = "name")
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "settlementId")
+    @JoinColumn(name = "settlement.id")
     private Integer origin;
 
     @Column(name = "taxGroup")
