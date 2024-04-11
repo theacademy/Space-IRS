@@ -8,15 +8,15 @@ import java.util.Set;
 public class Species {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "speciesId", nullable = false)
     private Integer id;
 
     @Column(name = "name")
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "settlement.id")
-    private Integer origin;
+    @JoinColumn(name = "origin", referencedColumnName = "settlementId")
+    private Settlement origin;
 
     @Column(name = "taxGroup")
     private Integer taxGroup;
@@ -46,11 +46,11 @@ public class Species {
         this.name = name;
     }
 
-    public Integer getOrigin() {
+    public Settlement getOrigin() {
         return origin;
     }
 
-    public void setOrigin(Integer origin) {
+    public void setOrigin(Settlement origin) {
         this.origin = origin;
     }
 

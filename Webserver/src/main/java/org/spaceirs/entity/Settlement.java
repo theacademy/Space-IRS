@@ -9,7 +9,7 @@ import java.util.Set;
 public class Settlement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "settlementId", nullable = false)
     private Integer id;
 
     @Column(name = "name", nullable = false)
@@ -27,8 +27,8 @@ public class Settlement {
     @ManyToMany
     @JoinTable(
             name = "populations",
-            joinColumns = {@JoinColumn(name = "speciesId")},
-            inverseJoinColumns = {@JoinColumn(name = "settlementId")}
+            joinColumns = {@JoinColumn(name = "populations_speciesId")},
+            inverseJoinColumns = {@JoinColumn(name = "populations_settlementId")}
     )
     private Set<Species> inhabitants;
 
