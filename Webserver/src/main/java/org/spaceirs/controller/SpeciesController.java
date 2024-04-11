@@ -23,7 +23,7 @@ public class SpeciesController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Species> getSpecies(@PathVariable("speciesId") Integer id) {
+    public ResponseEntity<Species> getSpecies(@PathVariable("id") Integer id) {
         Species species = speciesRepo.findById(id).orElse(null);
         return new ResponseEntity<Species>(species, HttpStatus.OK);
     }

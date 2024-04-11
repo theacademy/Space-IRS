@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
-@Table(name = "course")
+@Table(name = "settlement")
 public class Settlement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
