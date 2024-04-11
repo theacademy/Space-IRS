@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SpeciesServiceImpl implements SpeciesService{
+public class SpeciesServiceImpl implements SpeciesService {
 
     @Autowired
     SpeciesRepo speciesRepo;
@@ -29,7 +29,7 @@ public class SpeciesServiceImpl implements SpeciesService{
     }
 
     @Override
-    public Species addNewSpecies(Species species, Settlement origin) {
+    public Species addNewSpecies(Species species) {
         return speciesRepo.save(species);
     }
 
@@ -45,7 +45,7 @@ public class SpeciesServiceImpl implements SpeciesService{
 
     @Override
     public Species setTaxGroup(Species species, int taxGroup) {
-        //TODO IMPLEMENT CALCULATING
+        // TODO IMPLEMENT CALCULATING
         return null;
     }
 }

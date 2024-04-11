@@ -1,6 +1,5 @@
 package org.spaceirs.controller;
 
-import org.spaceirs.dao.SettlementRepo;
 import org.spaceirs.entity.Settlement;
 import org.spaceirs.services.ServicePersistenceException;
 import org.spaceirs.services.SettlementService;
@@ -43,7 +42,8 @@ public class SettlementController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Settlement> updateSettlement(@PathVariable("id") Integer id, @RequestBody Settlement settlement) throws ServicePersistenceException {
+    public ResponseEntity<Settlement> updateSettlement(@PathVariable("id") Integer id,
+            @RequestBody Settlement settlement) throws ServicePersistenceException {
         settlementService.updateSettlementData(id, settlement);
         return new ResponseEntity<Settlement>(settlement, HttpStatus.OK);
     }

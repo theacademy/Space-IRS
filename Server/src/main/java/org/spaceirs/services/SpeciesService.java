@@ -8,12 +8,15 @@ import java.util.List;
 public interface SpeciesService {
 
     List<Species> getAllSpecies();
+
     Species getSpeciesById(int id);
-    Species addNewSpecies(Species species, Settlement origin);
+
+    Species addNewSpecies(Species species);
+
     Species updateSpeciesData(Species species);
+
     void deleteSpeciesById(int id);
+
     Species setTaxGroup(Species species, int taxGroup);
-
-
 
 }
