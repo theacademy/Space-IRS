@@ -3,49 +3,53 @@ CREATE DATABASE spaceirs;
 USE spaceirs;
 
 CREATE TABLE settlement (
-settlementId INT PRIMARY KEY AUTO_INCREMENT,
+settlement_id INT PRIMARY KEY AUTO_INCREMENT,
 `name` VARCHAR(50) DEFAULT "Unknown",
 `type` VARCHAR(25),
 directions MEDIUMTEXT,
-taxModifier DECIMAL(5,2) NOT NULL
+tax_modifier DECIMAL(5,2) NOT NULL
 );
 
-CREATE TABLE taxGroup (
-taxGroupId INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE tax_group (
+tax_group_id INT PRIMARY KEY AUTO_INCREMENT,
 `name` VARCHAR(50),
-taxRate DECIMAL(5,2) NOT NULL
+tax_rate DECIMAL(5,2) NOT NULL
 );
-
 
 CREATE TABLE species (
-speciesId INT PRIMARY KEY AUTO_INCREMENT,
+species_id INT PRIMARY KEY AUTO_INCREMENT,
 `name` VARCHAR(50) NOT NULL,
 origin INT,
-taxGroup INT DEFAULT 1,
+tax_group INT DEFAULT 1,
 FOREIGN KEY (origin)
-    REFERENCES settlement(settlementId),
-FOREIGN KEY (taxGroup)
-    REFERENCES taxGroup(taxGroupId)
+    REFERENCES settlement(settlement_id),
+FOREIGN KEY (tax_group)
+    REFERENCES tax_group(tax_group_id)
 );
 
 CREATE TABLE populations (
-populations_speciesId INT,
-populations_settlementId INT,
+populations_species_id INT,
+populations_settlement_id INT,
 population INT NOT NULL,
-PRIMARY KEY (populations_speciesId, populations_settlementId),
-FOREIGN KEY (populations_speciesId)
-    REFERENCES species(speciesId),
-FOREIGN KEY (populations_settlementId)
-    REFERENCES settlement(settlementId)
+PRIMARY KEY (populations_species_id, populations_settlement_id),
+FOREIGN KEY (populations_species_id)
+    REFERENCES species(species_id),
+FOREIGN KEY (populations_settlement_id)
+    REFERENCES settlement(settlement_id)
 );
-
 
 CREATE TABLE orbits (
-parentId INT,
-childId INT,
-PRIMARY KEY (parentId, childId),
-FOREIGN KEY (parentId)
-    REFERENCES settlement(settlementId),
-FOREIGN KEY (childId)
-    REFERENCES settlement(settlementId)
+parent_id INT,
+child_id INT,
+PRIMARY KEY (parent_id, child_id),
+FOREIGN KEY (parent_id)
+    REFERENCES settlement(settlement_id),
+FOREIGN KEY (child_id)
+    REFERENCES settlement(settlement_id)
 );
+
+DESCRIBE settlement;
+DESCRIBE tax_group;
+DESCRIBE species;
+DESCRIBE populations;
+DESCRIBE orbits;
