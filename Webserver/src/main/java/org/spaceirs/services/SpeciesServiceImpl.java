@@ -29,7 +29,7 @@ public class SpeciesServiceImpl implements SpeciesService{
     }
 
     @Override
-    public Species addNewSpecies(Species species, Settlement origin) {
+    public Species addNewSpecies(Species species) {
         return speciesRepo.save(species);
     }
 
