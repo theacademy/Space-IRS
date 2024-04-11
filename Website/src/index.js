@@ -3,7 +3,7 @@ let api = 'localhost:8080/';
 $(function () {
     let params = new URLSearchParams(window.location.search)
 
-    if (params.has('id')) {
+    if (!params.has('id')) {
         $('#view').load("./components/search.html", function () {
             if (params.has('search')) {
                 loadResultsTable(params.get('search'), params.get('type'));
