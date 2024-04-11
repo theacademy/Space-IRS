@@ -1,9 +1,6 @@
 package com.wiley.schoolJPA.controller;
 
-import com.wiley.schoolJPA.dao.TeacherRepo;
-import com.wiley.schoolJPA.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +12,7 @@ import java.util.List;
 @CrossOrigin
 public class TeacherController {
     @Autowired
-    private TeacherRepo teacherRepo;
+    private com.wiley.schoolJPA.dao.TaxGroupRepo teacherRepo;
 
     @GetMapping("/teachers")
     public ResponseEntity<List<Teacher>> allTeachers() {

@@ -1,7 +1,6 @@
 package com.wiley.schoolJPA.controller;
 
 import com.wiley.schoolJPA.dao.StudentRepo;
-import com.wiley.schoolJPA.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,20 +16,20 @@ public class StudentController {
     private StudentRepo studentRepo;
 
     @GetMapping("/students")
-    public ResponseEntity<List<Student>> allStudents() {
-        List<Student> students = studentRepo.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(students);
+    public ResponseEntity<List<com.wiley.schoolJPA.entity.TaxGroup>> allStudents() {
+        List<com.wiley.schoolJPA.entity.TaxGroup> taxGroups = studentRepo.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(taxGroups);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Student> getStudentById(@PathVariable("id") Integer id) {
-        Student student = studentRepo.findById(id).orElse(null);
-        return new ResponseEntity<Student>(student, HttpStatus.OK);
+    public ResponseEntity<com.wiley.schoolJPA.entity.TaxGroup> getStudentById(@PathVariable("id") Integer id) {
+        com.wiley.schoolJPA.entity.TaxGroup taxGroup = studentRepo.findById(id).orElse(null);
+        return new ResponseEntity<com.wiley.schoolJPA.entity.TaxGroup>(taxGroup, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Void> addNewStudent(@RequestBody Student student) {
-        studentRepo.save(student);
+    public ResponseEntity<Void> addNewStudent(@RequestBody com.wiley.schoolJPA.entity.TaxGroup taxGroup) {
+        studentRepo.save(taxGroup);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
@@ -41,8 +40,8 @@ public class StudentController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
-        studentRepo.save(student);
-        return new ResponseEntity<Student>(student, HttpStatus.OK);
+    public ResponseEntity<com.wiley.schoolJPA.entity.TaxGroup> updateStudent(@RequestBody com.wiley.schoolJPA.entity.TaxGroup taxGroup) {
+        studentRepo.save(taxGroup);
+        return new ResponseEntity<com.wiley.schoolJPA.entity.TaxGroup>(taxGroup, HttpStatus.OK);
     }
 }
