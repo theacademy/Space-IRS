@@ -1,12 +1,12 @@
-package com.wiley.schoolJPA;
+package org.spaceirs;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SchoolJpaApplication {
+public class SpaceIRSApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(SchoolJpaApplication.class, args);
+        SpringApplication.run(SpaceIRSApp.class, args);
     }
 }
