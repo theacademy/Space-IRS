@@ -13,7 +13,6 @@ import java.util.List;
 @RequestMapping("/settlement")
 @CrossOrigin
 public class SettlementController {
-
     @Autowired
     private SettlementRepo settlementRepo;
 
