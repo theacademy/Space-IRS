@@ -29,12 +29,11 @@ public class SettlementServiceImpl implements SettlementService {
 
     @Override
     public Settlement getSettlementById(int id) throws ServicePersistenceException {
-        Settlement settlement;
-        try{
-            settlement = settlementDao.findById(id).orElse(null);
-            return settlement;
-        } catch (DataAccessException ex){
-            throw new ServicePersistenceException("Settlement not found", ex.getCause());
+        Settlement settlement = settlementDao.findById(id).orElse(null);
+        if(settlement == null){
+                throw new ServicePersistenceException("Settlement not found");
+        } else {
+                return settlement;
         }
     }
 
@@ -65,11 +64,11 @@ public class SettlementServiceImpl implements SettlementService {
 
     @Override
     public void deleteSettlementById(int id) throws ServicePersistenceException {
-        try {
-            Settlement settlement = settlementDao.findById(id).orElse(null);
+        Settlement settlement = settlementDao.findById(id).orElse(null);
+        if(settlement == null) {
+            throw new ServicePersistenceException("Settlement not found");
+        } else {
             settlementDao.delete(settlement);
-        } catch (DataAccessException ex) {
-            throw new ServicePersistenceException("Settlement not found", ex.getCause());
         }
     }
 
