@@ -48,4 +48,9 @@ public class SpeciesServiceImpl implements SpeciesService {
         // TODO IMPLEMENT CALCULATING
         return null;
     }
+
+    @Override
+    public List<Species> searchForSpecies(String name) {
+        return speciesRepo.searchForSpecies(name);
+    }
 }

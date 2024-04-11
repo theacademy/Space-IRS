@@ -19,4 +19,6 @@ public interface SpeciesService {
 
     Species setTaxGroup(Species species, int taxGroup);
 
+    List<Species> searchForSpecies(String name);
+
 }

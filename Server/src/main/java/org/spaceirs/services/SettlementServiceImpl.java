@@ -91,6 +91,7 @@ public class SettlementServiceImpl implements SettlementService {
         return null;
     }
 
+    @Override
     public List<Settlement> searchForSettlement(String name) {
         return settlementDao.searchForSettlements(name);
     }
