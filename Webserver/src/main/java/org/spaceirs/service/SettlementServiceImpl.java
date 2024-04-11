@@ -1,17 +1,21 @@
-package com.wiley.spaceIRS.service;
+package org.spaceirs.service;
 
+import org.spaceirs.dao.SettlementRepo;
+import org.spaceirs.entity.Settlement;
+import org.spaceirs.service.SettlementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class SettlementServiceImpl implements SettlementService {
     @Autowired
-    SettlementDao settlementDao;
+    SettlementRepo settlementDao;
 
-    public SettlementServiceImpl(SettlementDao settlementDao){
+    public SettlementServiceImpl(SettlementRepo settlementDao){
         this.settlementDao = settlementDao;
     }
 
@@ -23,7 +27,7 @@ public class SettlementServiceImpl implements SettlementService {
     public Settlement getSettlementById(int id) {
         Settlement settlement;
         try{
-            settlement = settlementDao.findById(id);
+            settlement = settlementDao.findById(id).orElse(null);
         } catch (DataAccessException ex){
             // TODO create an exception with a correct message
         }

@@ -1,6 +1,9 @@
-package com.wiley.spaceIRS.service;
+package org.spaceirs.service;
+
+import org.spaceirs.entity.Settlement;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface SettlementService {
     List<Settlement> getAllSettlements();
