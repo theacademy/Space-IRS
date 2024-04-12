@@ -24,23 +24,42 @@ public class SpeciesServiceImpl implements SpeciesService {
     }
 
     @Override
-    public Species getSpeciesById(int id) {
-        return speciesRepo.findById(id).orElse(null);
+    public Species getSpeciesById(int id) throws ServicePersistenceException{
+        Species species = speciesRepo.findById(id).orElse(null);
+        if(species == null) {
+            throw new ServicePersistenceException("Species not found.");
+        } else {
+            return species;
+        }
     }
 
     @Override
-    public Species addNewSpecies(Species species) {
-        return speciesRepo.save(species);
+    public Species addNewSpecies(Species species) throws ServicePersistenceException{
+        if((species.getName().isEmpty() || species.getName().equals(""))
+                || (species.getOrigin() == null || species.getOrigin().equals(""))){
+            throw new ServicePersistenceException("Invalid input, a field is missing from species.");
+        } else {
+            return speciesRepo.save(species);
+        }
     }
 
     @Override
-    public Species updateSpeciesData(Species species) {
-        return speciesRepo.save(species);
+    public Species updateSpeciesData(int id, Species species) throws ServicePersistenceException{
+        if(species.getId() != id){
+            throw new ServicePersistenceException("Cannot update species, invalid species id given.");
+        } else {
+            return speciesRepo.save(species);
+        }
     }
 
     @Override
-    public void deleteSpeciesById(int id) {
-        speciesRepo.deleteById(id);
+    public void deleteSpeciesById(int id) throws ServicePersistenceException{
+        Species species = speciesRepo.findById(id).orElse(null);
+        if(species == null){
+            throw new ServicePersistenceException("Species not found");
+        } else {
+            speciesRepo.deleteById(id);
+        }
     }
 
     @Override
