@@ -8,7 +8,11 @@ This is Galactic Federations tax website...
 
 ### Database
 
+Load schema.sql and example_data.sql onto a sequel database.
+
 ### Server
+
+Run the SpaceIRSApp.java file
 
 ### Website
 
