@@ -29,12 +29,11 @@ public class SettlementServiceImpl implements SettlementService {
 
     @Override
     public Settlement getSettlementById(int id) throws ServicePersistenceException {
-        Settlement settlement;
-        try {
-            settlement = settlementDao.findById(id).orElse(null);
+        Settlement settlement = settlementDao.findById(id).orElse(null);
+        if(settlement == null){
+            throw new ServicePersistenceException("Settlement not found.");
+        } else {
             return settlement;
-        } catch (DataAccessException ex) {
-            throw new ServicePersistenceException("Settlement not found", ex.getCause());
         }
     }
 
@@ -45,7 +44,7 @@ public class SettlementServiceImpl implements SettlementService {
                 || (settlement.getType().isEmpty() || settlement.getType().equals(""))
                 || (settlement.getTaxModifier() == null || settlement.getTaxModifier().equals(""))) {
 
-            throw new ServicePersistenceException("Invalid input, a filed is missing from settlement,");
+            throw new ServicePersistenceException("Invalid input, a filed is missing from settlement.");
 
         } else {
             settlement = settlementDao.save(settlement);
@@ -56,7 +55,7 @@ public class SettlementServiceImpl implements SettlementService {
     @Override
     public Settlement updateSettlementData(int id, Settlement settlement) throws ServicePersistenceException {
         if (settlement.getId() != id) {
-            throw new ServicePersistenceException("Cannot update settlement, invalid settlement id given");
+            throw new ServicePersistenceException("Cannot update settlement, invalid settlement id given.");
         } else {
             return settlementDao.save(settlement);
         }
@@ -65,11 +64,11 @@ public class SettlementServiceImpl implements SettlementService {
 
     @Override
     public void deleteSettlementById(int id) throws ServicePersistenceException {
-        try {
-            Settlement settlement = settlementDao.findById(id).orElse(null);
+        Settlement settlement = settlementDao.findById(id).orElse(null);
+        if(settlement == null) {
+            throw new ServicePersistenceException("Settlement not found");
+        } else {
             settlementDao.delete(settlement);
-        } catch (DataAccessException ex) {
-            throw new ServicePersistenceException("Settlement not found", ex.getCause());
         }
     }
 

@@ -36,14 +36,14 @@ public class SpeciesController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteSpecies(@PathVariable("id") Integer id) {
+    public ResponseEntity<Void> deleteSpecies(@PathVariable("id") Integer id) throws ServicePersistenceException {
         speciesService.deleteSpeciesById(id);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Species> updateSpecies(@PathVariable("id") Integer id, @RequestBody Species species) {
-        speciesService.updateSpeciesData(species);
+    public ResponseEntity<Species> updateSpecies(@PathVariable("id") Integer id, @RequestBody Species species) throws ServicePersistenceException {
+        speciesService.updateSpeciesData(id, species);
         return new ResponseEntity<Species>(species, HttpStatus.OK);
     }
 
