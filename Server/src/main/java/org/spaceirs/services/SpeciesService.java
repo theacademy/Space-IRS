@@ -1,6 +1,7 @@
 package org.spaceirs.services;
 
 import org.spaceirs.entity.Species;
+import org.spaceirs.entity.TaxGroupId;
 
 import java.util.List;
 
@@ -15,8 +16,6 @@ public interface SpeciesService {
     Species updateSpeciesData(Species species);
 
     void deleteSpeciesById(int id);
-
-    Species setTaxGroup(Species species, int taxGroup);
 
     List<Species> searchForSpecies(String name);
 

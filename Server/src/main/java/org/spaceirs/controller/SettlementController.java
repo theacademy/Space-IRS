@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -52,5 +53,12 @@ public class SettlementController {
     public ResponseEntity<List<Settlement>> updateSettlement(@PathVariable("name") String name) throws ServicePersistenceException {
         List<Settlement> settlements = settlementService.searchForSettlement(name);
         return ResponseEntity.status(HttpStatus.OK).body(settlements);
+    }
+
+    @GetMapping("/tax/{settlementId}/{speciesId}")
+    public ResponseEntity<BigDecimal> getInhabitantTax(@PathVariable("speciesId") Integer speciesId,
+                                                       @PathVariable("settlementId") Integer settlementId) throws ServicePersistenceException {
+        BigDecimal tax = settlementService.getInhabitantTax(speciesId, settlementId);
+        return new ResponseEntity<BigDecimal>(tax, HttpStatus.OK);
     }
 }

@@ -7,9 +7,9 @@ INSERT INTO settlement (`name`, `type`, directions, tax_modifier) VALUES
 ('Xo12XX', 'isolated settlement', 'between many parties', 2.2);
 
 INSERT INTO tax_group (`name`, tax_rate) VALUES
-('big tax', 20),
-('normal tax', 10),
 ('small tax', 7); 
+('normal tax', 10),
+('big tax', 20),
 
 INSERT INTO species (`name`, origin, tax_group) VALUES
 ('human', 1, 2),

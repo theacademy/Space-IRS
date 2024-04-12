@@ -94,4 +94,9 @@ public class SettlementServiceImpl implements SettlementService {
     public List<Settlement> searchForSettlement(String name) {
         return settlementDao.searchForSettlements(name);
     }
+
+    @Override
+    public BigDecimal getInhabitantTax(int speciesId, int settlementId) {
+        return settlementDao.getInhabitantTax(speciesId, settlementId);
+    }
 }
