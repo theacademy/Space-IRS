@@ -1,11 +1,14 @@
-let api = 'http://127.0.0.1:8080/';
+let api = 'http://localhost:8080/';
 
 $(function () {
     let params = new URLSearchParams(window.location.search)
 
     if (!params.has('id')) {
+        $('#homeButton').hide();
         showSearchPage(params);
+        searchViewButtons();
     } else {
+        $('#homeButton').show();
         showDetailsPage(params);
     }
 
@@ -16,8 +19,18 @@ $(function () {
 
 function showSearchPage(params) {
     $('#view').load("./components/search.html", function () {
+        $('#wildcard').on('click', function () {
+            $.ajax({
+                url: api + `${$('#type').val()}/all`,
+                success: data => loadDataInTable(data, $('#type').val())
+            });
+        });
+
         if (params.has('search')) {
-            loadResultsTable(params.get('search'), params.get('type'));
+            $.ajax({
+                url: api + `${params.get('type')}/search/${params.get('search')}`,
+                success: data => loadDataInTable(data, params.get('type')),
+            });
         }
     });
 }
@@ -41,53 +54,86 @@ function showDetailsPage(params) {
     });
 }
 
+// Button Functions ------------------------------------------------------------
+
+function searchViewButtons() {
+    let species = ['👽', '👾', '🤖', '😀', '🥶', '😺', '👻', '🐶', '🦁', '🦊', '🐸', '🐼', '🐨', '🐻', '🐗', '🕷', '🦚', '🦀', '🦐', '🦑', '🐙', '🐧', '🐌', '🐠', '🐲'];
+    $('#upperButton').find('h2').text(species[Math.floor(Math.random() * species.length)]);
+    $('#upperButton').prop('title', 'Create Species')
+    $('#upperButton').on('click', function () {
+        console.log('Upper Button Clicked');
+    });
+
+    let settlements = ['🏘', '🏙', '⚙', '🖨', '💾', '💿', '🧶', '🌍', '🌎', '🌏', '🌐', '🕍', '🏛', '🕋', '🏭', '🌋', '🏔', '🌁', '🧳', '🌔', '☀', '🌀', '🚠', '🚀', '🛰', '🌌', '☄'];
+    $('#lowerButton').find('h2').text(settlements[Math.floor(Math.random() * settlements.length)]);
+    $('#lowerButton').prop('title', 'Create Settlement')
+    $('#lowerButton').on('click', function () {
+        console.log('Lower Button Clicked');
+    });
+}
 
 // Controller Functions --------------------------------------------------------
 
-function loadResultsTable(search, type) {
-    $('#results').load("./components/table.html", function () {
-
+function createTable(id, headings, rows, type) {
+    $(id).load("./components/table.html", function () {
         let header = $('#results').find('thead').find('tr');
-        header.html('<tr>Test</tr>')
-        if (type === 'species') {
-            header.html('<th>Name</th><th>Origin</th>'); // Removed <th>Tax Group</th> as it's not given in the API
-        } else if (type === 'settlement') {
-            header.html('<th>Name</th><th>Type</th><th>Base Tax</th>');
-        }
+        let body = $('#results').find('tbody');
+        header.html(headings);
 
-        $.ajax({
-            url: api + type + '/all',
-            success: function (data) {
-                console.log(data);
-                let body = $('#results').find('tbody');
+        Object.entries(rows).forEach(([id, rowHTML]) => {
+            let row = $('<tr>').addClass('cursor-pointer hover:bg-slate-200 hover:text-slate-600');
+            row.html(rowHTML);
 
+            row.on('click', function () {
+                // Set the URL parameters
+                let url = new URL(window.location.origin + window.location.pathname);
+                console.log(url);
+                url.searchParams.set('id', id);
+                url.searchParams.set('type', type);
 
-                data.forEach(element => {
-                    let row = $('<tr>');
-                    row.append($('<td>').text(sentencify(element.name)));
-                    row.append($('<td>').text(sentencify(type === "species" ? element.origin.name : element.type)));
-                    if (type === 'settlement') {
-                        row.append($('<td>').text(element.taxModifier + '%'));
-                    }
+                // Redirect to the new URL
+                window.location.href = url.toString();
+            });
 
-                    row.on('click', function () {
-                        // Set the URL parameters
-                        let url = new URL(window.location.origin + window.location.pathname);
-                        console.log(url);
-                        url.searchParams.set('id', element.id);
-                        url.searchParams.set('type', type);
-
-                        // Redirect to the new URL
-                        window.location.href = url.toString();
-                    });
-
-
-                    body.append(row);
-                });
-            }
+            body.append(row);
         });
-    });
 
+        $(id).find('th').each(function () {
+            $(this).addClass('px-3 py-1 whitespace-nowrap');
+        });
+
+        $(id).find('tr').each(function () {
+            $(this).find('td').each(function () {
+                $(this).addClass('px-3 py-1 whitespace-nowrap');
+            });
+        });
+
+    });
+}
+
+function loadDataInTable(data, type) {
+    console.log(data);
+
+    let tableID = '#results';
+    var headings;
+    var rows;
+    if (type === 'species') {
+        headings = '<th>Name</th><th>Origin</th>';
+        rows = data.reduce((dict, species) => {
+            let origin = species.origin ? species.origin.name : 'Unknown';
+            dict[species.id] = `<td>${sentencify(species.name)}</td><td>${sentencify(origin)}</td>`;
+            return dict;
+        }, {});
+    } else {
+        headings = '<th>Name</th><th>Type</th><th>Base Tax</th>';
+        rows = data.reduce((dict, settlement) => {
+            dict[settlement.id] = `<td>${sentencify(settlement.name)}</td><td>${sentencify(settlement.type)}</td><td>${settlement.taxModifier + '%'}</td>`;
+            return dict;
+        }, {});
+    }
+
+
+    createTable(tableID, headings, rows, type);
 }
 
 // Helper Functions ------------------------------------------------------------

@@ -1,6 +1,5 @@
 package org.spaceirs.services;
 
-import org.spaceirs.entity.Settlement;
 import org.spaceirs.entity.Species;
 
 import java.util.List;

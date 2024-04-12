@@ -18,8 +18,10 @@
     <title>Space IRS</title>
 </head>
 
-<body>
+<body class="bg-slate-100">
     <script src="jquery.js"></script>
+
+    <!-- Banner Element -->
 
     <div class="flex bg-slate-700 h-24 w-full items-center">
         <image src="./assets/flag.jpg" alt="flag" class="h-24"></image>
@@ -28,15 +30,34 @@
             <h3>Discover the wonders of your space tax with us...</h3>
         </div>
         <div class="flex-grow"></div>
-        <a href="index.html" class="mx-2 p-3">
+        <a href="index.html" class="mx-2 p-3" id="homeButton">
             <img width="40" height="40" src="./assets/backarrow.svg">
         </a>
     </div>
+
+    <!-- View Element -->
 
     <div class="flex h-full w-full justify-center my-6">
         <div class="w-full mx-6 lg:w-3/4 lg:mx-auto" id="view"></div>
     </div>
 
+    <!-- Overlayed Buttons Element -->
+
+    <div class="relative">
+        <div class="z-10 fixed bottom-0 right-0 p-5 flex flex-col gap-4">
+
+            <button type="button" class="relative" id="upperButton">
+                <img width="80" height="80" src="./assets/diamond.svg">
+                <h2 class="absolute inset-0 flex justify-center items-center z-20">❓</h2>
+            </button>
+
+            <button type="button" class="relative" id="lowerButton">
+                <img width="80" height="80" src="./assets/diamond.svg">
+                <h2 class="absolute inset-0 flex justify-center items-center z-20">❔</h2>
+            </button>
+
+        </div>
+    </div>
 </body>
 
 </html>
