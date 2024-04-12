@@ -24,7 +24,7 @@ public class SpeciesServiceImplTest {
     SpeciesServiceImpl service;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() throws ServicePersistenceException {
         List<Species> speciesList = service.getAllSpecies();
         for(Species species : speciesList){
             service.deleteSpeciesById(species.getId());
