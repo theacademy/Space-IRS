@@ -54,4 +54,11 @@ public class Species {
         this.origin = origin;
     }
 
+    @Override
+    public String toString() {
+        return "Species{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

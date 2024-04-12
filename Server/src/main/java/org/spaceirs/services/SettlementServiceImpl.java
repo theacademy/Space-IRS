@@ -3,6 +3,7 @@ package org.spaceirs.services;
 import org.spaceirs.dao.SettlementRepo;
 import org.spaceirs.dao.SpeciesRepo;
 import org.spaceirs.entity.Settlement;
+import org.spaceirs.entity.Species;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,11 @@ public class SettlementServiceImpl implements SettlementService {
     SettlementRepo settlementDao;
 
     @Autowired
-    SpeciesRepo speciesDao;
+    SpeciesService speciesService;
 
-    public SettlementServiceImpl(SettlementRepo settlementDao, SpeciesRepo speciesDao) {
+    public SettlementServiceImpl(SettlementRepo settlementDao, SpeciesService speciesService) {
         this.settlementDao = settlementDao;
-        this.speciesDao = speciesDao;
+        this.speciesService = speciesService;
     }
 
     public List<Settlement> getAllSettlements() {
@@ -73,15 +74,17 @@ public class SettlementServiceImpl implements SettlementService {
     }
 
     @Override
-    public Settlement addSpeciesToSettlement(int setId, int speId, BigDecimal population) {
-        // try {
-        // Settlement settlement = settlementDao.findById(setId).orElse(null);
-        // Species species = speciesDao.findById(speId).orElse(null);
-        // if(population != null){
-        //
-        // }
-        // }
-        return null;
+    public Settlement addSpeciesToSettlement(int settlementId, int speciesId, int population) throws ServicePersistenceException {
+         Settlement settlement = getSettlementById(settlementId);
+         Species species = speciesService.getSpeciesById(speciesId);
+
+         if(population > 0){
+             settlement.getInhabitants().put(species, population);
+             settlementDao.save(settlement);
+         } else {
+             throw new ServicePersistenceException("Population number should be more than 0.");
+         }
+        return settlement;
     }
 
     @Override

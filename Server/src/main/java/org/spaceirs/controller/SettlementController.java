@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/settlement")
@@ -52,5 +53,14 @@ public class SettlementController {
     public ResponseEntity<List<Settlement>> updateSettlement(@PathVariable("name") String name) throws ServicePersistenceException {
         List<Settlement> settlements = settlementService.searchForSettlement(name);
         return ResponseEntity.status(HttpStatus.OK).body(settlements);
+    }
+
+    @PutMapping("/add/{settlementId}/{speciesId}/")
+    public ResponseEntity<Settlement> addSpeciesToSettlement(@PathVariable("settlementId") Integer settlementId,
+                                                             @PathVariable("speciesId") Integer speciesId,
+                                                             @RequestBody Map<String, Integer> requestBody) throws ServicePersistenceException{
+        Integer population = requestBody.get("population");
+        Settlement settlement = settlementService.addSpeciesToSettlement(settlementId, speciesId, population);
+        return ResponseEntity.status(HttpStatus.OK).body(settlement);
     }
 }

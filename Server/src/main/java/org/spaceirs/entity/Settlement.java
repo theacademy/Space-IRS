@@ -2,6 +2,7 @@ package org.spaceirs.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -24,18 +25,16 @@ public class Settlement {
     @Column(name = "taxModifier")
     private BigDecimal taxModifier;
 
-    @ManyToMany
-    @JoinTable(
-            name = "populations",
-            joinColumns = {@JoinColumn(name = "populations_speciesId")},
-            inverseJoinColumns = {@JoinColumn(name = "populations_settlementId")}
-    )
-    private Set<Species> inhabitants;
+    @ElementCollection
+    @CollectionTable(name = "populations", joinColumns = @JoinColumn(name = "populations_settlement_id"))
+    @MapKeyJoinColumn(name = "populations_species_id")
+    @Column(name = "population")
+    private Map<Species, Integer> inhabitants;
 
     public Settlement() {}
 
-    public Settlement(Set<Species> inhabitants) {
-        this.inhabitants = inhabitants;
+    public Settlement(Species species, int populationData) {
+        this.inhabitants.put(species, populationData);
     }
 
     public Integer getId() {
@@ -76,5 +75,9 @@ public class Settlement {
 
     public void setTaxModifier(BigDecimal taxModifier) {
         this.taxModifier = taxModifier;
+    }
+
+    public Map<Species, Integer> getInhabitants() {
+        return inhabitants;
     }
 }
