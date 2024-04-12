@@ -1,6 +1,5 @@
 package org.spaceirs.dao;
 
-import org.spaceirs.entity.Settlement;
 import org.spaceirs.entity.Species;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

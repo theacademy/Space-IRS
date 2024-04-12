@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class SettlementServiceImpl implements SettlementService {
@@ -19,32 +18,32 @@ public class SettlementServiceImpl implements SettlementService {
     @Autowired
     SpeciesRepo speciesDao;
 
-    public SettlementServiceImpl(SettlementRepo settlementDao, SpeciesRepo speciesDao){
+    public SettlementServiceImpl(SettlementRepo settlementDao, SpeciesRepo speciesDao) {
         this.settlementDao = settlementDao;
         this.speciesDao = speciesDao;
     }
 
-    public List<Settlement> getAllSettlements(){
+    public List<Settlement> getAllSettlements() {
         return settlementDao.findAll();
     }
 
     @Override
     public Settlement getSettlementById(int id) throws ServicePersistenceException {
         Settlement settlement;
-        try{
+        try {
             settlement = settlementDao.findById(id).orElse(null);
             return settlement;
-        } catch (DataAccessException ex){
+        } catch (DataAccessException ex) {
             throw new ServicePersistenceException("Settlement not found", ex.getCause());
         }
     }
 
     @Override
     public Settlement addNewSettlement(Settlement settlement) throws ServicePersistenceException {
-        if((settlement.getName().isEmpty() || settlement.getName().equals(""))
-            || (settlement.getDirections().isEmpty() || settlement.getDirections().equals(""))
-            || (settlement.getType().isEmpty() || settlement.getType().equals(""))
-            || (settlement.getTaxModifier() == null || settlement.getTaxModifier().equals(""))) {
+        if ((settlement.getName().isEmpty() || settlement.getName().equals(""))
+                || (settlement.getDirections().isEmpty() || settlement.getDirections().equals(""))
+                || (settlement.getType().isEmpty() || settlement.getType().equals(""))
+                || (settlement.getTaxModifier() == null || settlement.getTaxModifier().equals(""))) {
 
             throw new ServicePersistenceException("Invalid input, a filed is missing from settlement,");
 
@@ -55,8 +54,8 @@ public class SettlementServiceImpl implements SettlementService {
     }
 
     @Override
-    public Settlement updateSettlementData(int id, Settlement settlement) throws ServicePersistenceException{
-        if(settlement.getId() != id){
+    public Settlement updateSettlementData(int id, Settlement settlement) throws ServicePersistenceException {
+        if (settlement.getId() != id) {
             throw new ServicePersistenceException("Cannot update settlement, invalid settlement id given");
         } else {
             return settlementDao.save(settlement);
@@ -76,13 +75,13 @@ public class SettlementServiceImpl implements SettlementService {
 
     @Override
     public Settlement addSpeciesToSettlement(int setId, int speId, BigDecimal population) {
- //      try {
- //          Settlement settlement = settlementDao.findById(setId).orElse(null);
- //          Species species = speciesDao.findById(speId).orElse(null);
- //          if(population != null){
- //
- //          }
- //      }
+        // try {
+        // Settlement settlement = settlementDao.findById(setId).orElse(null);
+        // Species species = speciesDao.findById(speId).orElse(null);
+        // if(population != null){
+        //
+        // }
+        // }
         return null;
     }
 
