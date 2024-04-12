@@ -24,13 +24,13 @@ public class SpeciesController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Species> getSpecies(@PathVariable("id") Integer id) {
+    public ResponseEntity<Species> getSpecies(@PathVariable("id") Integer id) throws ServicePersistenceException {
         Species species = speciesService.getSpeciesById(id);
         return new ResponseEntity<Species>(species, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Void> addSpecies(@RequestBody Species species) {
+    public ResponseEntity<Void> addSpecies(@RequestBody Species species) throws ServicePersistenceException {
         speciesService.addNewSpecies(species);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
