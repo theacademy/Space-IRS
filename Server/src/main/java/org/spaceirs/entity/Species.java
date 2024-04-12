@@ -1,9 +1,6 @@
 package org.spaceirs.entity;
 
-import org.springframework.data.jpa.repository.Query;
-
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,16 +14,12 @@ public class Species {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "origin", referencedColumnName = "settlementId")
     private Settlement origin;
 
     @Column(name = "taxGroup")
     private int taxGroup; //id only
-
-//    @ManyToOne
-//    @JoinColumn(name = "taxGroup", referencedColumnName = "taxGroupId")
-//    private TaxGroup taxGroup; //full tax group entity
 
     @ManyToMany(mappedBy = "inhabitants")
     private Set<Settlement> settlements;
@@ -69,12 +62,11 @@ public class Species {
         this.taxGroup = taxGroup;
     }
 
-//    public int getTaxGroupId() {
-//        return taxGroupId;
-//    }
-//
-//    public void setTaxGroupId(int taxGroupId) {
-//        this.taxGroupId = taxGroupId;
-//    }
+    public Set<Settlement> getSettlements() {
+        return settlements;
+    }
 
+    public void setSettlements(Set<Settlement> settlements) {
+        this.settlements = settlements;
+    }
 }

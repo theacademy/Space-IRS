@@ -77,4 +77,12 @@ public class Settlement {
     public void setTaxModifier(BigDecimal taxModifier) {
         this.taxModifier = taxModifier;
     }
+
+    public Set<Species> getInhabitants() {
+        return inhabitants;
+    }
+
+    public void setInhabitants(Set<Species> inhabitants) {
+        this.inhabitants = inhabitants;
+    }
 }

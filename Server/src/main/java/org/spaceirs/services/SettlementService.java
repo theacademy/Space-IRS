@@ -23,6 +23,4 @@ public interface SettlementService {
     List<Settlement> searchForSettlement(String name);
 
     BigDecimal getInhabitantTax(int speciesId, int settlementId);
-
-//    BigDecimal getInhabitantTax(String speciesName, int settlementId);
 }

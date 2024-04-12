@@ -1,5 +1,6 @@
 package org.spaceirs.services;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.spaceirs.TestApplicationConfiguration;
@@ -22,6 +23,13 @@ class SettlementServiceImplTest {
     @Autowired
     SettlementServiceImpl service;
 
+//    @BeforeEach
+//    public void setUp() throws ServicePersistenceException {
+//        List<Settlement> settlements = service.getAllSettlements();
+//        for(Settlement s : settlements) {
+//            service.deleteSettlementById(s.getId());
+//        }
+//    }
 
     @Test
     void getAllSettlements() throws ServicePersistenceException {
