@@ -17,9 +17,11 @@ VALUES (
         'Xo12XX', 'isolated settlement', '3° Off Sirius then turn right', 2.2
     );
 
-INSERT INTO tax_group (`name`, tax_rate) VALUES ('small tax', 7);
-
-('normal tax', 10), ('big tax', 20),
+INSERT INTO
+    tax_group (`name`, tax_rate)
+VALUES ('small tax', 7),
+    ('normal tax', 10),
+    ('big tax', 20);
 
 INSERT INTO
     species (`name`, origin, tax_group)
