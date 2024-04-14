@@ -105,10 +105,22 @@ function detailsViewButtons() {
 
     $('#lowerButton').find('h2').text('🖊');
     $('#lowerButton').prop('title', 'Edit')
-    $('#lowerButton').on('click', function () {
-        console.log('Lower Button Clicked');
-    });
+    $('#lowerButton').on('click', flipEditButton);
 }
+
+function flipEditButton() {
+    if ($('#lowerButton').find('h2').text() === '🖊') {
+        $('#lowerButton').find('h2').text('💾');
+        $('#lowerButton').prop('title', 'Save');
+        $("#detailsForm input").prop("disabled", false);
+    } else {
+        $('#lowerButton').find('h2').text('🖊');
+        $('#lowerButton').prop('title', 'Edit');
+        $("#detailsForm input").prop("disabled", true);
+        saveRecord();
+    }
+}
+
 
 // Component Controller Functions --------------------------------------------------------
 
@@ -169,6 +181,25 @@ function loadObjectData(tableID, data, type) {
     createTable(tableID, headings, rows, type);
 }
 
+function saveRecord(data, type) {
+    console.log('Saving...');
+    // let data = {
+    //     name: $('#name').val(),
+    //     type: $('#type').val(),
+    //     directions: $('#directions').val(),
+    // };
+
+    // $.ajax({
+    //     url: api + type + '/create',
+    //     type: 'POST',
+    //     data: JSON.stringify(data),
+    //     contentType: 'application/json',
+    //     success: function (data) {
+    //         console.log(data);
+    //     }
+    // });
+}
+
 function deleteRecord(id, type) {
     $.ajax({
         url: api + type + '/delete/' + id,
@@ -186,3 +217,4 @@ function sentencify(string) {
     if (!string) return 'Unknown';
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
