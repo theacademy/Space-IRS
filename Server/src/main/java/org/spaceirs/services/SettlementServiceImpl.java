@@ -1,10 +1,8 @@
 package org.spaceirs.services;
 
 import org.spaceirs.dao.SettlementRepo;
-import org.spaceirs.dao.SpeciesRepo;
 import org.spaceirs.entity.Settlement;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -15,12 +13,8 @@ public class SettlementServiceImpl implements SettlementService {
     @Autowired
     SettlementRepo settlementDao;
 
-    @Autowired
-    SpeciesRepo speciesDao;
-
-    public SettlementServiceImpl(SettlementRepo settlementDao, SpeciesRepo speciesDao) {
+    public SettlementServiceImpl(SettlementRepo settlementDao) {
         this.settlementDao = settlementDao;
-        this.speciesDao = speciesDao;
     }
 
     public List<Settlement> getAllSettlements() {
@@ -30,7 +24,7 @@ public class SettlementServiceImpl implements SettlementService {
     @Override
     public Settlement getSettlementById(int id) throws ServicePersistenceException {
         Settlement settlement = settlementDao.findById(id).orElse(null);
-        if(settlement == null){
+        if (settlement == null) {
             throw new ServicePersistenceException("Settlement not found.");
         } else {
             return settlement;
@@ -65,23 +59,11 @@ public class SettlementServiceImpl implements SettlementService {
     @Override
     public void deleteSettlementById(int id) throws ServicePersistenceException {
         Settlement settlement = settlementDao.findById(id).orElse(null);
-//        if(settlement == null) {
-//            throw new ServicePersistenceException("Settlement not found");
-//        } else {
-            settlementDao.delete(settlement);
-//        }
-    }
-
-    @Override
-    public Settlement addSpeciesToSettlement(int setId, int speId, BigDecimal population) {
-        // try {
-        // Settlement settlement = settlementDao.findById(setId).orElse(null);
-        // Species species = speciesDao.findById(speId).orElse(null);
-        // if(population != null){
-        //
+        // if(settlement == null) {
+        // throw new ServicePersistenceException("Settlement not found");
+        // } else {
+        settlementDao.delete(settlement);
         // }
-        // }
-        return null;
     }
 
     @Override

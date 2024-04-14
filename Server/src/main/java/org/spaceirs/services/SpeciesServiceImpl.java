@@ -2,33 +2,29 @@ package org.spaceirs.services;
 
 import org.spaceirs.dao.SpeciesRepo;
 import org.spaceirs.entity.Species;
-import org.spaceirs.entity.TaxGroupId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
 public class SpeciesServiceImpl implements SpeciesService {
 
     @Autowired
-    SpeciesRepo speciesRepo;
+    SpeciesRepo speciesDao;
 
     public SpeciesServiceImpl(SpeciesRepo speciesRepo) {
-        this.speciesRepo = speciesRepo;
+        this.speciesDao = speciesRepo;
     }
 
     @Override
     public List<Species> getAllSpecies() {
-        return speciesRepo.findAll();
+        return speciesDao.findAll();
     }
 
     @Override
-    public Species getSpeciesById(int id) throws ServicePersistenceException{
-        Species species = speciesRepo.findById(id).orElse(null);
-        if(species == null) {
+    public Species getSpeciesById(int id) throws ServicePersistenceException {
+        Species species = speciesDao.findById(id).orElse(null);
+        if (species == null) {
             throw new ServicePersistenceException("Species not found.");
         } else {
             return species;
@@ -36,36 +32,36 @@ public class SpeciesServiceImpl implements SpeciesService {
     }
 
     @Override
-    public Species addNewSpecies(Species species) throws ServicePersistenceException{
-        if((species.getName().isEmpty() || species.getName().equals(""))
-                || (species.getOrigin() == null || species.getOrigin().equals(""))){
+    public Species addNewSpecies(Species species) throws ServicePersistenceException {
+        if ((species.getName().isEmpty() || species.getName().equals(""))
+                || (species.getOrigin() == null || species.getOrigin().equals(""))) {
             throw new ServicePersistenceException("Invalid input, a field is missing from species.");
         } else {
-            return speciesRepo.save(species);
+            return speciesDao.save(species);
         }
     }
 
     @Override
-    public Species updateSpeciesData(int id, Species species) throws ServicePersistenceException{
-        if(species.getId() != id){
+    public Species updateSpeciesData(int id, Species species) throws ServicePersistenceException {
+        if (species.getId() != id) {
             throw new ServicePersistenceException("Cannot update species, invalid species id given.");
         } else {
-            return speciesRepo.save(species);
+            return speciesDao.save(species);
         }
     }
 
     @Override
-    public void deleteSpeciesById(int id) throws ServicePersistenceException{
-        Species species = speciesRepo.findById(id).orElse(null);
-        if(species == null){
+    public void deleteSpeciesById(int id) throws ServicePersistenceException {
+        Species species = speciesDao.findById(id).orElse(null);
+        if (species == null) {
             throw new ServicePersistenceException("Species not found");
         } else {
-            speciesRepo.deleteById(id);
+            speciesDao.deleteById(id);
         }
     }
 
     @Override
     public List<Species> searchForSpecies(String name) {
-        return speciesRepo.searchForSpecies(name);
+        return speciesDao.searchForSpecies(name);
     }
 }

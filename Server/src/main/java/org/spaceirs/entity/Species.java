@@ -1,7 +1,11 @@
 package org.spaceirs.entity;
 
 import javax.persistence.*;
-import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import java.util.List;
 
 @Entity
 @Table(name = "species")
@@ -19,16 +23,7 @@ public class Species {
     private Settlement origin;
 
     @Column(name = "taxGroup")
-    private int taxGroup; //id only
-
-    @ManyToMany(mappedBy = "inhabitants")
-    private Set<Settlement> settlements;
-
-    public Species() {}
-
-    public Species(Set<Settlement> settlements) {
-        this.settlements = settlements;
-    }
+    private int taxGroup; // id only
 
     public Integer getId() {
         return id;
@@ -62,11 +57,4 @@ public class Species {
         this.taxGroup = taxGroup;
     }
 
-    public Set<Settlement> getSettlements() {
-        return settlements;
-    }
-
-    public void setSettlements(Set<Settlement> settlements) {
-        this.settlements = settlements;
-    }
 }

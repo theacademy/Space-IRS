@@ -2,7 +2,6 @@ package org.spaceirs.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Set;
 
 @Entity
 @Table(name = "settlement")
@@ -23,20 +22,6 @@ public class Settlement {
 
     @Column(name = "taxModifier")
     private BigDecimal taxModifier;
-
-    @ManyToMany
-    @JoinTable(
-            name = "populations",
-            joinColumns = {@JoinColumn(name = "populations_speciesId")},
-            inverseJoinColumns = {@JoinColumn(name = "populations_settlementId")}
-    )
-    private Set<Species> inhabitants;
-
-    public Settlement() {}
-
-    public Settlement(Set<Species> inhabitants) {
-        this.inhabitants = inhabitants;
-    }
 
     public Integer getId() {
         return id;
@@ -78,11 +63,4 @@ public class Settlement {
         this.taxModifier = taxModifier;
     }
 
-    public Set<Species> getInhabitants() {
-        return inhabitants;
-    }
-
-    public void setInhabitants(Set<Species> inhabitants) {
-        this.inhabitants = inhabitants;
-    }
 }
