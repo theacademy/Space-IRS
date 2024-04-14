@@ -1,7 +1,5 @@
 package org.spaceirs.controller;
 
-import org.spaceirs.dao.SpeciesRepo;
-import org.spaceirs.entity.Settlement;
 import org.spaceirs.entity.Species;
 import org.spaceirs.services.ServicePersistenceException;
 import org.spaceirs.services.SpeciesService;
@@ -50,7 +48,8 @@ public class SpeciesController {
     }
 
     @GetMapping("/search/{name}")
-    public ResponseEntity<List<Species>> updateSettlement(@PathVariable("name") String name) throws ServicePersistenceException {
+    public ResponseEntity<List<Species>> updateSettlement(@PathVariable("name") String name)
+            throws ServicePersistenceException {
         List<Species> species = speciesService.searchForSpecies(name);
         return ResponseEntity.status(HttpStatus.OK).body(species);
     }

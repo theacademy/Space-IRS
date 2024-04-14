@@ -1,3 +1,4 @@
+let url = new URL(window.location.origin + window.location.pathname);
 let api = 'http://localhost:8080/';
 
 $(function () {
@@ -22,14 +23,14 @@ function showSearchPage(params) {
         $('#wildcard').on('click', function () {
             $.ajax({
                 url: api + `${$('#type').val()}/all`,
-                success: data => loadDataInTable(data, $('#type').val())
+                success: data => loadObjectData('#results', data, $('#type').val())
             });
         });
 
         if (params.has('search')) {
             $.ajax({
                 url: api + `${params.get('type')}/search/${params.get('search')}`,
-                success: data => loadDataInTable(data, params.get('type')),
+                success: data => loadObjectData('#results', data, params.get('type')),
             });
         }
     });
@@ -48,6 +49,12 @@ function showDetailsPage(params) {
                 $('#title').attr("placeholder", sentencify(data.name));
                 $('#info-L').attr("placeholder", sentencify(data.type));
                 $('#info-R').attr("placeholder", sentencify(data.directions));
+
+                $.ajax({
+                    url: api + type + '/subtable/' + id,
+                    success: data =>
+                        loadObjectData('#subtable', data, type),
+                });
             }
         });
 
@@ -86,8 +93,6 @@ function createTable(id, headings, rows, type) {
 
             row.on('click', function () {
                 // Set the URL parameters
-                let url = new URL(window.location.origin + window.location.pathname);
-                console.log(url);
                 url.searchParams.set('id', id);
                 url.searchParams.set('type', type);
 
@@ -111,10 +116,7 @@ function createTable(id, headings, rows, type) {
     });
 }
 
-function loadDataInTable(data, type) {
-    console.log(data);
-
-    let tableID = '#results';
+function loadObjectData(tableID, data, type) {
     var headings;
     var rows;
     if (type === 'species') {
@@ -131,13 +133,12 @@ function loadDataInTable(data, type) {
             return dict;
         }, {});
     }
-
-
     createTable(tableID, headings, rows, type);
 }
 
 // Helper Functions ------------------------------------------------------------
 
 function sentencify(string) {
+    if (string === undefined) return string;
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
