@@ -12,7 +12,8 @@ Load schema.sql and example_data.sql onto a sequel database.
 
 ### Server
 
-Run the SpaceIRSApp.java file
+Create an application.properties file in the resources folder of the Server part of the project. This for should be based on the application.properties.template file and pointed at your SQL database. 
+After this file is set up correctly, simply run the SpaceIRSApp.java file!
 
 ### Website
 
@@ -21,6 +22,7 @@ First you need to install the node packages, this is done by running...
 ```
 npm i
 ```
+This must be done in the Website/ directory. 
 
 Then if you wish only to host the website run...
 
