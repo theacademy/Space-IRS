@@ -25,14 +25,14 @@ function showSearchPage(params) {
         $('#wildcard').on('click', function () {
             $.ajax({
                 url: api + `${$('#type').val()}/all`,
-                success: data => loadDataInTable(data, $('#type').val())
+                success: data => loadObjectData('#results', data, $('#type').val())
             });
         });
 
         if (params.has('search')) {
             $.ajax({
                 url: api + `${params.get('type')}/search/${params.get('search')}`,
-                success: data => loadDataInTable(data, params.get('type')),
+                success: data => loadObjectData('#results', data, params.get('type')),
             });
         }
     });
