@@ -67,11 +67,6 @@ public class SettlementServiceImpl implements SettlementService {
     }
 
     @Override
-    public Settlement addChildSettlementToSettlement(int setId) {
-        return null;
-    }
-
-    @Override
     public List<Settlement> searchForSettlement(String name) {
         return settlementDao.searchForSettlements(name);
     }
