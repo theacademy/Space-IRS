@@ -1,5 +1,5 @@
-let api = 'http://localhost:8080/';
 let url = new URL(window.location.origin + window.location.pathname);
+let api = 'http://localhost:8080/';
 
 
 $(function () {
@@ -24,16 +24,14 @@ function showSearchPage(params) {
     $('#view').load("./components/search.html", function () {
         $('#wildcard').on('click', function () {
             $.ajax({
-                url: api + $('#type').val() + '/all',
-                type: 'GET',
+                url: api + `${$('#type').val()}/all`,
                 success: data => loadDataInTable(data, $('#type').val())
             });
         });
 
         if (params.has('search')) {
             $.ajax({
-                url: api + params.get('type') + '/search/' + params.get('search'),
-                type: 'GET',
+                url: api + `${params.get('type')}/search/${params.get('search')}`,
                 success: data => loadDataInTable(data, params.get('type')),
             });
         }
@@ -66,6 +64,12 @@ function showDetailsPage(params) {
                     $('#info-R span').text('Directions to Settlement');
                     $('#info-R input').attr("placeholder", sentencify(data.directions));
                 }
+
+                $.ajax({
+                    url: api + type + '/subtable/' + id,
+                    success: data =>
+                        loadObjectData('#subtable', data, type),
+                });
             }
         });
 
@@ -145,10 +149,7 @@ function createTable(id, headings, rows, type) {
 
 // API Functions ------------------------------------------------------------
 
-function loadDataInTable(data, type) {
-    console.log(data);
-
-    let tableID = '#results';
+function loadObjectData(tableID, data, type) {
     var headings;
     var rows;
     if (type === 'species') {
@@ -165,8 +166,6 @@ function loadDataInTable(data, type) {
             return dict;
         }, {});
     }
-
-
     createTable(tableID, headings, rows, type);
 }
 
