@@ -5,16 +5,16 @@ INSERT INTO
         `name`, `type`, directions, tax_modifier
     )
 VALUES (
-        'Earth', 'open settlement', 'turn left at Alpha Centauri', 2.3
+        'Earth', 'Rocky Planet', 'turn left at Alpha Centauri', 2.3
     ),
     (
-        'Mars', 'not so open settlement', 'Avoid lane closure on Asteroid Belt', 5.0
+        'Mars', 'Rockey Planet', 'Avoid lane closure on Asteroid Belt', 5.0
     ),
     (
-        'Jupiter', 'open settlement', 'New shortcut calculated via Uranus', 1.1
+        'Jupiter', 'Gas Giant', 'New shortcut calculated via Uranus', 1.1
     ),
     (
-        'Xo12XX', 'isolated settlement', '3° Off Sirius then turn right', 2.2
+        'Xo12XX', 'Space Stations', '3° Off Sirius then turn right', 2.2
     );
 
 INSERT INTO
