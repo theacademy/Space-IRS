@@ -16,8 +16,6 @@ public interface SettlementService {
 
     void deleteSettlementById(int id) throws ServicePersistenceException;
 
-    Settlement addSpeciesToSettlement(int setId, int speId, BigDecimal population);
-
     Settlement addChildSettlementToSettlement(int setId);
 
     List<Settlement> searchForSettlement(String name);

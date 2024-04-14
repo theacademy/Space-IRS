@@ -11,7 +11,7 @@ h2 {
 }
 
 h3 {
-    @apply text-2xl font-bold font-title;
+    @apply text-2xl font-title;
 }
 
 .search {
@@ -19,9 +19,9 @@ h3 {
 }
 
 .detailCard {
-    @apply bg-gray-200 p-4 rounded-xl shadow-md placeholder-black text-2xl font-title;
+    @apply bg-gray-200 p-4 rounded-xl shadow-md;
 }
 
 .detailInput {
-    @apply placeholder-black font-bold text-center;
+    @apply placeholder-black text-center font-title text-orange-500;
 }
