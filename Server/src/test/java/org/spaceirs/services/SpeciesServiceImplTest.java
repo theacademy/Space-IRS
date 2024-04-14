@@ -21,13 +21,16 @@ public class SpeciesServiceImplTest {
 
 
     @Autowired
-    SpeciesServiceImpl service;
+    SpeciesServiceImpl speciesService;
+
+    @Autowired
+    SettlementServiceImpl settlementService;
 
     @BeforeEach
     public void setUp() throws ServicePersistenceException {
-        List<Species> speciesList = service.getAllSpecies();
+        List<Species> speciesList = speciesService.getAllSpecies();
         for(Species species : speciesList){
-            service.deleteSpeciesById(species.getId());
+            speciesService.deleteSpeciesById(species.getId());
         }
     }
 
@@ -45,15 +48,15 @@ public class SpeciesServiceImplTest {
         species.setId(1);
         species.setOrigin(settlement1);
         species.setName("name");
-        service.addNewSpecies(species);
+        speciesService.addNewSpecies(species);
 
         Species species2 = new Species();
         species2.setId(2);
         species2.setOrigin(settlement1);
         species2.setName("name");
-        service.addNewSpecies(species2);
+        speciesService.addNewSpecies(species2);
 
-        List<Species> list = service.getAllSpecies();
+        List<Species> list = speciesService.getAllSpecies();
 
         assertEquals(2, list.size());
 
@@ -61,23 +64,39 @@ public class SpeciesServiceImplTest {
     }
 
     @Test
-    void getSpeciesById() throws ServicePersistenceException {
-//        Settlement settlement1 = new Settlement();
-//        settlement1.setId(1);
-//        settlement1.setName("name");
-//        settlement1.setDirections("direction");
-//        settlement1.setType("type");
-//        settlement1.setTaxModifier(BigDecimal.valueOf(3));
-//
-//        Species species = new Species();
-//        species.setId(3);
-//        species.setOrigin(settlement1);
-//        species.setName("name");
-//        service.addNewSpecies(species);
-//
-//        Species savedSpecies = service.getSpeciesById(3);
-//
-//        assertEquals(savedSpecies.getId(), species.getId());
+    void addWithValidDataAndGetSpeciesById() {
+        Settlement settlement1 = new Settlement();
+        settlement1.setId(1);
+        settlement1.setName("name");
+        settlement1.setDirections("direction");
+        settlement1.setType("type");
+        settlement1.setTaxModifier(BigDecimal.valueOf(3));
+        try {
+            settlementService.addNewSettlement(settlement1);
+        } catch (ServicePersistenceException e) {
+            fail("Settlement was valid. No exception should have been thrown.");
+        }
+
+        Species species = new Species();
+        species.setId(1);
+        species.setOrigin(settlement1);
+        species.setName("name");
+
+        try {
+            speciesService.addNewSpecies(species);
+        } catch (ServicePersistenceException e) {
+            fail("Species was valid. No exception should have been thrown.");
+        }
+
+        Species savedSpecies = new Species();
+
+        try {
+            savedSpecies = speciesService.getSpeciesById(1);
+        } catch (ServicePersistenceException e) {
+            fail("Save was succesfully. No exception should have been thrown.");
+        }
+
+        assertEquals(species.getId(), savedSpecies.getId());
     }
 
 

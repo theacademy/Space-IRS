@@ -11,8 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith(SpringExtension.class)
@@ -48,7 +47,7 @@ class SettlementServiceImplTest {
     }
 
     @Test
-    void addAndGetSettlementById() throws ServicePersistenceException {
+    void addWithValidDataAndGetSettlementByIdTest() throws ServicePersistenceException {
 
         Settlement settlement1 = new Settlement();
         settlement1.setId(1);
@@ -63,6 +62,24 @@ class SettlementServiceImplTest {
         assertEquals("name",fromDB.getName());
     }
 
+    @Test
+    void addWithInvalidInputTest() {
+
+        Settlement settlement1 = new Settlement();
+        settlement1.setId(1);
+        settlement1.setName("");
+        settlement1.setDirections("");
+        settlement1.setType("");
+        settlement1.setTaxModifier(null);
+
+        try {
+            service.addNewSettlement(settlement1);
+            fail("Expected ValidationException was not thrown.");
+        } catch (ServicePersistenceException e) {
+           return;
+        }
+
+    }
 
     @Test
     void updateSettlementData() throws ServicePersistenceException {
