@@ -1,4 +1,6 @@
 let api = 'http://localhost:8080/';
+let url = new URL(window.location.origin + window.location.pathname);
+
 
 $(function () {
     let params = new URLSearchParams(window.location.search)
@@ -9,6 +11,7 @@ $(function () {
         searchViewButtons();
     } else {
         $('#homeButton').show();
+        detailsViewButtons();
         showDetailsPage(params);
     }
 
@@ -21,14 +24,16 @@ function showSearchPage(params) {
     $('#view').load("./components/search.html", function () {
         $('#wildcard').on('click', function () {
             $.ajax({
-                url: api + `${$('#type').val()}/all`,
+                url: api + $('#type').val() + '/all',
+                type: 'GET',
                 success: data => loadDataInTable(data, $('#type').val())
             });
         });
 
         if (params.has('search')) {
             $.ajax({
-                url: api + `${params.get('type')}/search/${params.get('search')}`,
+                url: api + params.get('type') + '/search/' + params.get('search'),
+                type: 'GET',
                 success: data => loadDataInTable(data, params.get('type')),
             });
         }
@@ -43,11 +48,24 @@ function showDetailsPage(params) {
 
         $.ajax({
             url: api + type + '/get/' + id,
+            type: 'GET',
             success: function (data) {
                 console.log(data);
-                $('#title').attr("placeholder", sentencify(data.name));
-                $('#info-L').attr("placeholder", sentencify(data.type));
-                $('#info-R').attr("placeholder", sentencify(data.directions));
+                if (type === 'species') {
+                    $('#title span').text('Species :');
+                    $('#title input').attr("placeholder", sentencify(data.name));
+                    $('#info-L span').text('Species Origin');
+                    $('#info-L input').attr("placeholder", sentencify(data.origin ? data.origin.name : 'Unknown'));
+                    $('#info-R span').text('Tax Group');
+                    $('#info-R input').attr("placeholder", "WIP"); //sentencify(data.taxGroup.name));
+                } else {
+                    $('#title span').text('Settlement :');
+                    $('#title input').attr("placeholder", sentencify(data.name));
+                    $('#info-L span').text('Settlement Type');
+                    $('#info-L input').attr("placeholder", sentencify(data.type));
+                    $('#info-R span').text('Directions to Settlement');
+                    $('#info-R input').attr("placeholder", sentencify(data.directions));
+                }
             }
         });
 
@@ -72,7 +90,23 @@ function searchViewButtons() {
     });
 }
 
-// Controller Functions --------------------------------------------------------
+function detailsViewButtons() {
+    $('#upperButton').find('h2').text('🗑');
+    $('#upperButton').prop('title', 'Delete')
+    $('#upperButton').on('click', function () {
+        console.log('Deleting...');
+        deleteRecord();
+        window.location.href = url.toString();
+    });
+
+    $('#lowerButton').find('h2').text('🖊');
+    $('#lowerButton').prop('title', 'Edit')
+    $('#lowerButton').on('click', function () {
+        console.log('Lower Button Clicked');
+    });
+}
+
+// Component Controller Functions --------------------------------------------------------
 
 function createTable(id, headings, rows, type) {
     $(id).load("./components/table.html", function () {
@@ -86,8 +120,6 @@ function createTable(id, headings, rows, type) {
 
             row.on('click', function () {
                 // Set the URL parameters
-                let url = new URL(window.location.origin + window.location.pathname);
-                console.log(url);
                 url.searchParams.set('id', id);
                 url.searchParams.set('type', type);
 
@@ -110,6 +142,8 @@ function createTable(id, headings, rows, type) {
 
     });
 }
+
+// API Functions ------------------------------------------------------------
 
 function loadDataInTable(data, type) {
     console.log(data);
@@ -136,8 +170,20 @@ function loadDataInTable(data, type) {
     createTable(tableID, headings, rows, type);
 }
 
+function deleteRecord(id, type) {
+    $.ajax({
+        url: api + type + '/delete/' + id,
+        type: 'DELETE',
+        success: function (data) {
+            console.log(data);
+        }
+    });
+}
+
+
 // Helper Functions ------------------------------------------------------------
 
 function sentencify(string) {
+    if (!string) return 'Unknown';
     return string.charAt(0).toUpperCase() + string.slice(1);
 }

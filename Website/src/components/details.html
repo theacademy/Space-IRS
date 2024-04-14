@@ -1,14 +1,23 @@
 <form class="flex flex-col gap-4" id="detailsForm">
     <div class="flex justify-between">
-        <input type="text" id="title" name="title" placeholder="Search for a..." class="detailCard">
+        <div class="detailCard" id="title">
+            <span></span>
+            <input type="text" name="title" placeholder="" class="detailInput text-3xl">
+        </div>
         <div id="maths" class="detailCard">
             <h1 id="mathsResult">N/A</h1>
         </div>
     </div>
 
     <div class="flex justify-between gap-5">
-        <input type="text" id="info-L" name="info-L" placeholder="Info box L" class="detailCard grow">
-        <input type="text" id="info-R" name="info-R" placeholder="Info box R" class="detailCard grow">
+        <div class="detailCard grow flex flex-col" id="info-L">
+            <span class="font-sans text-sm"></span>
+            <input type="text" name="input-L" placeholder="Info box L" class="detailInput">
+        </div>
+        <div class="detailCard grow flex flex-col" id="info-R">
+            <span class="font-sans text-sm"></span>
+            <input type="text" name="input-R" placeholder="Info box R" class="detailInput">
+        </div>
     </div>
 
     <div id="subtable" class="detailCard"></div>
