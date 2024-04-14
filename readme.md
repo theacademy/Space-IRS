@@ -35,3 +35,7 @@ npm run dev
 ```
 
 This is so tailwind continues to update it's tailout.css file.
+
+### Test
+
+Load test_schema.sql file to run test methods.
