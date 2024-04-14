@@ -1,11 +1,13 @@
 package org.spaceirs.services;
 
 import org.spaceirs.dao.SpeciesRepo;
-import org.spaceirs.entity.Settlement;
 import org.spaceirs.entity.Species;
+import org.spaceirs.entity.TaxGroupId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -60,12 +62,6 @@ public class SpeciesServiceImpl implements SpeciesService {
         } else {
             speciesRepo.deleteById(id);
         }
-    }
-
-    @Override
-    public Species setTaxGroup(Species species, int taxGroup) {
-        // TODO IMPLEMENT CALCULATING
-        return null;
     }
 
     @Override

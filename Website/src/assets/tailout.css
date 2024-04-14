@@ -732,31 +732,12 @@ video {
   padding: 0.75rem;
 }
 
-.p-5 {
-  padding: 1.25rem;
-}
-
-.p-2 {
-  padding: 0.5rem;
-}
-
 .p-4 {
   padding: 1rem;
 }
 
-.px-6 {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+.p-5 {
+  padding: 1.25rem;
 }
 
 .px-3 {
@@ -773,8 +754,22 @@ video {
   text-align: left;
 }
 
+.font-sans {
+  font-family: ui-sans-serif, system-ui;
+}
+
 .font-title {
   font-family: Orbitron;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .text-gray-200 {
@@ -829,10 +824,13 @@ h3 {
 }
 
 .detailCard {
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
   padding: 1rem;
+  font-family: Orbitron;
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .detailCard::-moz-placeholder {
@@ -851,19 +849,24 @@ h3 {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.hover\:bg-gray-300:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+.detailInput {
+  text-align: center;
+  font-weight: 700;
+}
+
+.detailInput::-moz-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-placeholder-opacity));
+}
+
+.detailInput::placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-placeholder-opacity));
 }
 
 .hover\:bg-slate-200:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(226 232 240 / var(--tw-bg-opacity));
-}
-
-.hover\:text-blue-600:hover {
-  --tw-text-opacity: 1;
-  color: rgb(37 99 235 / var(--tw-text-opacity));
 }
 
 .hover\:text-slate-600:hover {

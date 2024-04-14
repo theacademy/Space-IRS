@@ -21,4 +21,6 @@ public interface SettlementService {
     Settlement addChildSettlementToSettlement(int setId);
 
     List<Settlement> searchForSettlement(String name);
+
+    BigDecimal getInhabitantTax(int speciesId, int settlementId);
 }

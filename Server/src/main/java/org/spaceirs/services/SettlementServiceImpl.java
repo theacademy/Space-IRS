@@ -65,11 +65,11 @@ public class SettlementServiceImpl implements SettlementService {
     @Override
     public void deleteSettlementById(int id) throws ServicePersistenceException {
         Settlement settlement = settlementDao.findById(id).orElse(null);
-        if(settlement == null) {
-            throw new ServicePersistenceException("Settlement not found");
-        } else {
+//        if(settlement == null) {
+//            throw new ServicePersistenceException("Settlement not found");
+//        } else {
             settlementDao.delete(settlement);
-        }
+//        }
     }
 
     @Override
@@ -92,5 +92,10 @@ public class SettlementServiceImpl implements SettlementService {
     @Override
     public List<Settlement> searchForSettlement(String name) {
         return settlementDao.searchForSettlements(name);
+    }
+
+    @Override
+    public BigDecimal getInhabitantTax(int speciesId, int settlementId) {
+        return settlementDao.getInhabitantTax(speciesId, settlementId);
     }
 }

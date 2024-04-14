@@ -14,12 +14,12 @@ public class Species {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "origin", referencedColumnName = "settlementId")
     private Settlement origin;
 
     @Column(name = "taxGroup")
-    private Integer taxGroup;
+    private int taxGroup; //id only
 
     @ManyToMany(mappedBy = "inhabitants")
     private Set<Settlement> settlements;
@@ -54,4 +54,19 @@ public class Species {
         this.origin = origin;
     }
 
+    public int getTaxGroup() {
+        return taxGroup;
+    }
+
+    public void setTaxGroup(int taxGroup) {
+        this.taxGroup = taxGroup;
+    }
+
+    public Set<Settlement> getSettlements() {
+        return settlements;
+    }
+
+    public void setSettlements(Set<Settlement> settlements) {
+        this.settlements = settlements;
+    }
 }

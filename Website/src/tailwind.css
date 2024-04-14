@@ -19,5 +19,9 @@ h3 {
 }
 
 .detailCard {
-    @apply bg-gray-200 p-4 rounded-lg shadow-md placeholder-black;
+    @apply bg-gray-200 p-4 rounded-xl shadow-md placeholder-black text-2xl font-title;
+}
+
+.detailInput {
+    @apply placeholder-black font-bold text-center;
 }
