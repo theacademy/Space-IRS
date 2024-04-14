@@ -112,19 +112,4 @@ class SettlementServiceImplTest {
 
     }
 
-    @Test
-    void deleteSettlementById() {
-    }
-
-    @Test
-    void addSpeciesToSettlement() {
-    }
-
-    @Test
-    void addChildSettlementToSettlement() {
-    }
-
-    @Test
-    void searchForSettlement() {
-    }
 }
