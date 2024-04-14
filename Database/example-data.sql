@@ -14,7 +14,7 @@ VALUES (
         'Jupiter', 'Gas Giant', 'New shortcut calculated via Uranus', 1.1
     ),
     (
-        'Xo12XX', 'Space Stations', '3° Off Sirius then turn right', 2.2
+        'Xo12XX', 'Space Station', '3° Off Sirius then turn right', 2.2
     );
 
 INSERT INTO
